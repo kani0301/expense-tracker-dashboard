@@ -1,20 +1,54 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Expense Tracker Dashboard
 
-# Run and deploy your AI Studio app
+## Overview
 
-This contains everything you need to run your app locally.
+Expense Tracker Dashboard is a modern personal finance management application designed to help users monitor their income, expenses, savings, and budgets efficiently. The platform provides an intuitive dashboard with real-time financial analytics, expense categorization, transaction management, and insightful visualizations to support better financial decision-making.
 
-View your app in AI Studio: https://ai.studio/apps/4f76754e-0e51-44ed-8f99-b1c8627d2787
+## Features
 
-## Run Locally
+* User Authentication
+* Income and Expense Tracking
+* Budget Management
+* Savings Goal Monitoring
+* Financial Analytics Dashboard
+* Interactive Charts and Reports
+* Category-wise Expense Tracking
+* Responsive User Interface
+* Secure Data Management
 
-**Prerequisites:**  Node.js
+## Technologies Used
 
+### Frontend
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Additional Tools
+
+* Google Gemini API
+* Chart.js
+
+## Installation
+
+1. Clone the repository
+2. Install dependencies using npm install
+3. Configure environment variables
+4. Run the application using npm run dev
+
+## Future Enhancements
+
+* AI-based Financial Recommendations
+* Expense Forecasting
+* Multi-user Collaboration
+* Mobile Application Support
+
+## Author
+
+Kanishkaa R
