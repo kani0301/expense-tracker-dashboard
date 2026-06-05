@@ -5,7 +5,7 @@ import { AppSchema, User, Transaction, Budget, SavingsGoal, AppNotification } fr
 
 const DB_FILE = path.join(process.cwd(), 'db.json');
 
-// Default initial database schema with rich seed data for a great demo experience
+// Default initial database schema with demo data
 const createDefaultDB = (): AppSchema => {
   const demoUserId = 'demo-user-id';
   const salt = crypto.randomBytes(16).toString('hex');
@@ -28,76 +28,76 @@ const createDefaultDB = (): AppSchema => {
         user_id: demoUserId,
         title: 'Monthly Salary',
         amount: 5500,
-        category: 'Investment',
+        category: 'Income',
         type: 'income',
         date: new Date().toISOString().substring(0, 10),
-        description: 'Primary job monthly payout'
+        description: 'Primary job monthly salary'
       },
       {
         transaction_id: 't2',
         user_id: demoUserId,
-        title: 'Freelance Design Werk Code',
+        title: 'Freelance Design Work',
         amount: 1500,
         category: 'Other',
         type: 'income',
         date: new Date(Date.now() - 3 * 24 * 3600 * 1000).toISOString().substring(0, 10),
-        description: 'SaaS dashboard frontend design delivery'
+        description: 'Freelance project payment'
       },
       // Current Month Expenses
       {
         transaction_id: 't3',
         user_id: demoUserId,
-        title: 'Whole Foods Groceries',
+        title: 'Groceries',
         amount: 320,
         category: 'Food',
         type: 'expense',
         date: new Date().toISOString().substring(0, 10),
-        description: 'Weekly organic pantry load'
+        description: 'Weekly grocery shopping'
       },
       {
         transaction_id: 't4',
         user_id: demoUserId,
-        title: 'Uber Ride City Center',
+        title: 'Taxi Ride',
         amount: 45,
         category: 'Travel',
         type: 'expense',
         date: new Date(Date.now() - 1 * 24 * 3600 * 1000).toISOString().substring(0, 10),
-        description: 'Meeting clients downtown'
+        description: 'Transportation to meeting'
       },
       {
         transaction_id: 't5',
         user_id: demoUserId,
-        title: 'Nordstrom Shopping',
+        title: 'Clothing Purchase',
         amount: 450,
         category: 'Shopping',
         type: 'expense',
         date: new Date(Date.now() - 5 * 24 * 3600 * 1000).toISOString().substring(0, 10),
-        description: 'Designer winter jacket'
+        description: 'Winter clothing'
       },
       {
         transaction_id: 't6',
         user_id: demoUserId,
-        title: 'Netflix & Spotify Premium',
+        title: 'Streaming Services',
         amount: 29.99,
         category: 'Entertainment',
         type: 'expense',
         date: new Date(Date.now() - 12 * 24 * 3600 * 1000).toISOString().substring(0, 10),
-        description: 'Monthly streaming subscriptions'
+        description: 'Monthly subscriptions'
       },
       {
         transaction_id: 't7',
         user_id: demoUserId,
-        title: 'Monthly Pharmacy Refill',
+        title: 'Pharmacy',
         amount: 65,
         category: 'Healthcare',
         type: 'expense',
         date: new Date(Date.now() - 10 * 24 * 3600 * 1000).toISOString().substring(0, 10),
-        description: 'Vitamins and essentials'
+        description: 'Medical supplies'
       },
       {
         transaction_id: 't8',
         user_id: demoUserId,
-        title: 'Udemy React Advanced Course',
+        title: 'Online Course',
         amount: 19.99,
         category: 'Education',
         type: 'expense',
@@ -107,37 +107,37 @@ const createDefaultDB = (): AppSchema => {
       {
         transaction_id: 't9',
         user_id: demoUserId,
-        title: 'Electric & Gas Bills',
+        title: 'Utilities',
         amount: 195,
         category: 'Bills',
         type: 'expense',
         date: new Date(Date.now() - 8 * 24 * 3600 * 1000).toISOString().substring(0, 10),
-        description: 'SaaS utility payments'
+        description: 'Monthly utility bills'
       },
       {
         transaction_id: 't10',
         user_id: demoUserId,
-        title: 'Downtown Studio Rent',
+        title: 'Rent Payment',
         amount: 1800,
         category: 'Rent',
         type: 'expense',
         date: new Date(Date.now() - 4 * 24 * 3600 * 1000).toISOString().substring(0, 10),
-        description: 'Rent for June month'
+        description: 'Monthly rent'
       },
       {
         transaction_id: 't11',
         user_id: demoUserId,
-        title: 'S&P 500 Index ETF Fund',
+        title: 'Investment Fund',
         amount: 400,
         category: 'Investment',
         type: 'expense',
         date: new Date(Date.now() - 15 * 24 * 3600 * 1000).toISOString().substring(0, 10),
-        description: 'Monthly recursive portfolio investing'
+        description: 'Monthly investment'
       }
     ],
     budgets: [
       { user_id: demoUserId, category: 'Food', limit_amount: 500 },
-      { user_id: demoUserId, category: 'Shopping', limit_amount: 300 }, // Over-budget on purpose to trigger alerts!
+      { user_id: demoUserId, category: 'Shopping', limit_amount: 300 },
       { user_id: demoUserId, category: 'Travel', limit_amount: 150 },
       { user_id: demoUserId, category: 'Entertainment', limit_amount: 100 },
       { user_id: demoUserId, category: 'Bills', limit_amount: 300 }
@@ -146,7 +146,7 @@ const createDefaultDB = (): AppSchema => {
       {
         goal_id: 'g1',
         user_id: demoUserId,
-        goal_name: 'Tokyo Autumn Trip',
+        goal_name: 'Vacation Fund',
         target_amount: 5000,
         current_amount: 2800,
         target_date: '2026-10-15'
@@ -154,7 +154,7 @@ const createDefaultDB = (): AppSchema => {
       {
         goal_id: 'g2',
         user_id: demoUserId,
-        goal_name: 'Emergency Nest Egg',
+        goal_name: 'Emergency Fund',
         target_amount: 10000,
         current_amount: 6000,
         target_date: '2026-12-31'
@@ -173,8 +173,8 @@ const createDefaultDB = (): AppSchema => {
       {
         notification_id: 'n2',
         user_id: demoUserId,
-        title: 'Savings Milestone!',
-        message: 'Awesome work! Your Tokyo Autumn Trip goal is now 56% complete.',
+        title: 'Savings Progress',
+        message: 'Great progress! Your Vacation Fund is now 56% complete.',
         type: 'success',
         created_at: new Date(Date.now() - 2 * 24 * 3600 * 1000).toISOString(),
         read: false
@@ -207,7 +207,7 @@ export class DatabaseService {
     }
   }
 
-  // PASSWORDS HASHING UTILS (SHA-512 PBKDF2)
+  // Password hashing utilities
   public static hashPassword(password: string): string {
     const salt = crypto.randomBytes(16).toString('hex');
     const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
@@ -295,7 +295,7 @@ export class DatabaseService {
     db.transactions.push(newTrans);
     this.writeDB(db);
 
-    // After creating a trans, evaluate budget alerts asynchronously helper
+    // Check budget after transaction creation
     this.checkBudgetLimit(userId, newTrans.category);
 
     return newTrans;
@@ -309,7 +309,7 @@ export class DatabaseService {
     db.transactions[idx] = {
       ...db.transactions[idx],
       ...trans,
-      transaction_id: transactionId, // security freeze
+      transaction_id: transactionId,
       user_id: userId
     };
 
@@ -402,10 +402,10 @@ export class DatabaseService {
     const updated = db.savingsGoals[idx];
     this.writeDB(db);
 
-    // check goal milestone progress trigger
+    // Check goal milestone
     const progressPercent = Math.round((updated.current_amount / updated.target_amount) * 100);
     if (progressPercent >= 100) {
-      this.addNotification(userId, 'Savings Goal Completed! 🎉', `Congratulations! You saved the full amount of $${updated.target_amount} for your "${updated.goal_name}" goal!`, 'success');
+      this.addNotification(userId, 'Savings Goal Completed!', `Congratulations! You saved the full amount of $${updated.target_amount} for your "${updated.goal_name}" goal!`, 'success');
     }
 
     return updated;
@@ -460,20 +460,20 @@ export class DatabaseService {
     return true;
   }
 
-  // --- AUTOMATIC ALERTS FOR BUDGET EXCEEDED ---
+  // --- AUTOMATIC BUDGET ALERTS ---
   private static checkBudgetLimit(userId: string, category: string): void {
     const db = this.readDB();
     const budget = db.budgets.find(b => b.user_id === userId && b.category.toLowerCase() === category.toLowerCase());
     if (!budget) return;
 
-    // Sum matching expenses for the current calendar month
-    const curYearMonth = new Date().toISOString().substring(0, 7); // "YYYY-MM"
+    // Sum expenses for current month
+    const curYearMonth = new Date().toISOString().substring(0, 7);
     const totalSpent = db.transactions
       .filter(t => t.user_id === userId && t.type === 'expense' && t.category.toLowerCase() === category.toLowerCase() && t.date.startsWith(curYearMonth))
       .reduce((sum, t) => sum + t.amount, 0);
 
     if (totalSpent > budget.limit_amount) {
-      // Check if alert already exists for this month and category to avoid flooding
+      // Check if alert already exists to avoid duplicates
       const alertTitle = `Budget Alert: ${category}`;
       const alreadyAlerted = db.notifications.some(
         n => n.user_id === userId && n.title === alertTitle && n.created_at.startsWith(curYearMonth)
