@@ -2,11 +2,11 @@
 
 ## Overview
 
-Expense Tracker Dashboard is a modern personal finance management application designed to help users monitor their income, expenses, savings, and budgets efficiently. The platform provides an intuitive dashboard with real-time financial analytics, expense categorization, transaction management, and insightful visualizations to support better financial decision-making.
+Expense Tracker Dashboard is a modern personal finance management application designed to help users efficiently track income, expenses, savings, and budgets. The platform provides an intuitive dashboard with real-time financial analytics, expense categorization, transaction management, and interactive visualizations to support informed financial decision-making.
 
 ## Features
 
-* User Authentication
+* User Authentication and Authorization
 * Income and Expense Tracking
 * Budget Management
 * Savings Goal Monitoring
@@ -37,10 +37,31 @@ Expense Tracker Dashboard is a modern personal finance management application de
 
 ## Installation
 
-1. Clone the repository
-2. Install dependencies using npm install
-3. Configure environment variables
-4. Run the application using npm run dev
+1. Clone the repository:
+
+   ```bash
+   git clone <repository-url>
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd expense-tracker-dashboard
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Configure environment variables.
+
+5. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
 
 ## Future Enhancements
 
