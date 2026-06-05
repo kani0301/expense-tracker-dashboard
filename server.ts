@@ -311,7 +311,7 @@ app.delete('/api/notifications', authenticate, (req, res) => {
   res.json({ success: true });
 });
 
-// --- AI-POWERED PERSONALIZED INSIGHTS ---
+// --- AI INSIGHTS ---
 
 app.get('/api/insights', authenticate, async (req, res) => {
   const userId = (req as any).userId;
@@ -319,15 +319,15 @@ app.get('/api/insights', authenticate, async (req, res) => {
   const budgets = DatabaseService.getBudgets(userId);
   const goals = DatabaseService.getSavingsGoals(userId);
 
-  // Fallback in case of no database transaction records
+  // Fallback in case of no transactions
   if (transactions.length === 0) {
     res.json({
       healthScore: 70,
-      overallAssessment: "Add transactions to unlock server-side Gemini financial analysis.",
+      overallAssessment: "Add transactions to get financial insights and recommendations.",
       recommendations: [
         {
           title: "Get Started",
-          description: "Log your first transactions or income to get detailed recommendations.",
+          description: "Log your first transactions to get personalized recommendations.",
           impact: "Medium"
         }
       ]
@@ -337,8 +337,7 @@ app.get('/api/insights', authenticate, async (req, res) => {
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey || apiKey === 'MY_GEMINI_API_KEY') {
-    // If user has not configured API key, return a highly intelligent deterministic mock insight
-    // so the app stays beautiful and fully featured!
+    // If API key is not configured, return mock insight with local data
     const totalExpenses = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
     const totalIncome = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
     const savingsRate = totalIncome > 0 ? ((totalIncome - totalExpenses) / totalIncome) * 100 : 0;
@@ -346,17 +345,17 @@ app.get('/api/insights', authenticate, async (req, res) => {
 
     res.json({
       healthScore: health,
-      overallAssessment: `Based on your local transaction profile: Your savings rate is currently ${savingsRate.toFixed(1)}%. Budget parameters represent stable asset performance.`,
+      overallAssessment: `Your savings rate is currently ${savingsRate.toFixed(1)}%. Review your spending patterns and adjust budgets as needed.`,
       recommendations: [
         {
-          title: "Setup Gemini API Key",
-          description: "Configure your Gemini credentials in Settings > Secrets to unlock personalized generative AI advisory.",
+          title: "Configure Gemini API Key",
+          description: "Add your Gemini API key to get AI-powered financial recommendations.",
           impact: "High",
           category: "General"
         },
         {
-          title: "Optimize High-Category Budgets",
-          description: "Food and Shopping categories make up a substantial portion of outbound transactions.",
+          title: "Review Budget Categories",
+          description: "Food and Shopping are significant expense categories. Consider setting limits if needed.",
           impact: "Medium",
           category: "Food"
         }
@@ -370,7 +369,7 @@ app.get('/api/insights', authenticate, async (req, res) => {
       apiKey: apiKey,
       httpOptions: {
         headers: {
-          'User-Agent': 'aistudio-build',
+          'User-Agent': 'expense-tracker-app',
         }
       }
     });
@@ -396,13 +395,13 @@ app.get('/api/insights', authenticate, async (req, res) => {
 
     const response = await ai.models.generateContent({
       model: 'gemini-3.5-flash',
-      contents: `You are a professional wealth advisor. Analyze these finances and compute a score and insights.
-Database JSON Data:
+      contents: `You are a financial advisor. Analyze these finances and provide actionable insights.
+Financial Data:
 ${JSON.stringify(contextSummary, null, 2)}
 
-Provide helpful advice regarding savings rate, over-budget segments, and goals. Focus on action items.`,
+Provide recommendations on savings rate, budget optimization, and financial goals.`,
       config: {
-        systemInstruction: "You are an elite, supportive AI Financial Advisor that outputs clean parsed recommendations based strictly on the user data JSON.",
+        systemInstruction: "Provide practical financial advice based on the provided financial data.",
         responseMimeType: "application/json",
         responseSchema: {
           type: Type.OBJECT,
@@ -410,23 +409,23 @@ Provide helpful advice regarding savings rate, over-budget segments, and goals. 
           properties: {
             healthScore: {
               type: Type.INTEGER,
-              description: "A financial health score from 0 (critical) to 100 (flawless portfolio and budgeting)"
+              description: "Financial health score from 0 to 100"
             },
             overallAssessment: {
               type: Type.STRING,
-              description: "A summary assessment of spending velocities, savings rates, and goals in 2-3 structured sentences."
+              description: "Summary of financial health and key observations"
             },
             recommendations: {
               type: Type.ARRAY,
-              description: "A list of actionable financial improvements.",
+              description: "List of actionable financial recommendations",
               items: {
                 type: Type.OBJECT,
                 required: ["title", "description", "impact"],
                 properties: {
                   title: { type: Type.STRING },
                   description: { type: Type.STRING },
-                  impact: { type: Type.STRING, description: "Must be 'High', 'Medium', or 'Low'" },
-                  category: { type: Type.STRING, description: "Finance category affected, e.g. 'Food', 'Savings', 'Investment'" }
+                  impact: { type: Type.STRING, description: "High, Medium, or Low" },
+                  category: { type: Type.STRING, description: "Financial category" }
                 }
               }
             }
@@ -439,15 +438,15 @@ Provide helpful advice regarding savings rate, over-budget segments, and goals. 
     if (resultText) {
       res.json(JSON.parse(resultText.trim()));
     } else {
-      throw new Error("No text received from Gemini");
+      throw new Error("No response from AI");
     }
   } catch (error) {
-    console.error('Gemini insights error:', error);
-    res.status(500).json({ error: 'AI advisor failed to generate insights' });
+    console.error('Insights generation error:', error);
+    res.status(500).json({ error: 'Failed to generate insights' });
   }
 });
 
-// --- STATIC ASSETS & VITE SERVING MIDDLEWARES ---
+// --- STATIC ASSETS & VITE SERVER ---
 
 async function initServer() {
   if (process.env.NODE_ENV !== 'production') {
