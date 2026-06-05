@@ -20,12 +20,12 @@ const AppContent: React.FC = () => {
   const getTabTitle = () => {
     switch (currentTab) {
       case 'dashboard': return 'Financial Analytics';
-      case 'transactions': return 'Audit Ledger';
-      case 'budgets': return 'Budget Boundaries';
-      case 'goals': return 'Savings Planner';
-      case 'insights': return 'AI Personalized Insights';
-      case 'reports': return 'Financial Declarations';
-      case 'profile': return 'Credentials Management';
+      case 'transactions': return 'Transaction History';
+      case 'budgets': return 'Budget Management';
+      case 'goals': return 'Savings Goals';
+      case 'insights': return 'AI Financial Insights';
+      case 'reports': return 'Financial Reports';
+      case 'profile': return 'Profile Settings';
       default: return 'Finance Manager';
     }
   };
@@ -58,22 +58,22 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#070b13] text-slate-100 font-sans antialiased relative overflow-hidden">
-      {/* GLOWING MESH AMBIENCE BACKDROPS */}
+      {/* Background Gradient Elements */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-650/15 blur-[120px] pointer-events-none z-0" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-650/15 blur-[120px] pointer-events-none z-0" />
       <div className="absolute top-[30%] right-[10%] w-[45%] h-[45%] rounded-full bg-emerald-500/8 blur-[125px] pointer-events-none z-0" />
       <div className="absolute bottom-[25%] left-[20%] w-[35%] h-[35%] rounded-full bg-indigo-500/8 blur-[110px] pointer-events-none z-0" />
 
-      {/* SIDEBAR FOR DESKTOP */}
+      {/* Desktop Sidebar */}
       <div className="hidden lg:block relative z-10">
         <Sidebar currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </div>
 
-      {/* MOBILE HEADER BAR */}
+      {/* Mobile Header Bar */}
       <header className="lg:hidden h-16 bg-slate-950/45 backdrop-blur-lg border-b border-white/10 flex items-center justify-between px-4 fixed top-0 left-0 w-full z-30 transition-all">
         <div className="flex items-center gap-2.5 text-emerald-400">
           <Wallet className="w-5 h-5 animate-pulse" />
-          <span className="font-bold text-sm tracking-tight text-white font-display">SaaS Ledger</span>
+          <span className="font-bold text-sm tracking-tight text-white font-display">Expense Tracker</span>
         </div>
 
         <button
@@ -85,10 +85,10 @@ const AppContent: React.FC = () => {
         </button>
       </header>
 
-      {/* MOBILE DRAWER SIDEBAR PANEL */}
+      {/* Mobile Drawer Sidebar */}
       {mobileSidebarOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
-          {/* backdrop */}
+          {/* Backdrop */}
           <div 
             onClick={() => setMobileSidebarOpen(false)}
             className="absolute inset-0 bg-slate-950/60 backdrop-blur-md"
@@ -101,11 +101,11 @@ const AppContent: React.FC = () => {
         </div>
       )}
 
-      {/* CENTRAL SCROLL CANVASS */}
+      {/* Main Content Area */}
       <main className="lg:pl-64 pt-16 lg:pt-0 min-h-screen transition-all relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 md:py-8">
           
-          {/* INNER VIEWPORT GAUGE TRANSITIONS */}
+          {/* Page Transition Container */}
           <motion.div
             key={currentTab}
             initial={{ opacity: 0, y: 10 }}
